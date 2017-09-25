@@ -1,9 +1,9 @@
-Hello to duckydocs's documentation!
+﻿Tài liệu cho Ducky Framework
 =====================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 5
+   :caption: Danh mục:
 
 
 
