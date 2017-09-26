@@ -1,1 +1,0 @@
-Search.setIndex({docnames:["index"],envversion:53,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,page:0,search:0},titles:["T\u00e0i li\u1ec7u cho Ducky Framework"],titleterms:{"li\u1ec7u":0,"t\u00e0i":0,cho:0,document:[],ducki:0,duckydoc:[],framework:0,hello:[],indic:0,tabl:0,welcom:[]}})
