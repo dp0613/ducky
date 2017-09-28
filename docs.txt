@@ -1,8 +1,0 @@
-A. Các thành phần của Framework
-	1. MVC / OOP
-	2. Đa ngôn ngữ
-	3. Friendly URLs
-	4. Template Engine
-	5. Caching
-	6. Phân quyền
-	7. Cookie

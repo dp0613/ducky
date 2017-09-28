@@ -1,2 +1,0 @@
-# ducky
-Ducky PHP Framework

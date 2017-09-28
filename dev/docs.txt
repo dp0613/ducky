@@ -1,0 +1,22 @@
+A. Các thành phần của Framework
+	1. MVC / OOP
+	2. Đa ngôn ngữ
+	3. Friendly URLs
+	4. Template Engine
+	5. Caching
+	6. Phân quyền
+	7. Cookie
+	
+B. Quy trình thi công
+	1. Code chức năng
+	2. Tối ưu thuật toán
+	3. Tối ưu coding style
+	4. Viết tài liệu
+	5. Comment vào các file có chỉnh sửa code
+	6. Đẩy code lên github
+	7. Ghi vào timeline công việc đã hoàn thành và 2 việc ngày tiếp theo
+	
+C. Định dạng URI
+	http://domain.com/shape/language/controller/controller_function/param1/param2
+	
+	

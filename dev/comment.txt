@@ -1,0 +1,30 @@
+/**
+ * login.controller.php
+ * 
+ * @last_editor: Nguyễn Văn A
+ * @last_edit_date: 13/09/2017 - 20h30'
+ * @changelog: http://link_to_changelog.html
+ * @notes: 
+ *   - Đã sửa và kiểm thử thành công chức năng đăng nhập.
+ *   - Còn đang tìm thuật toán cho việc xử lý mật khẩu.
+ */
+ 
+ ---------------------------------------------------
+ 
+ /**
+ * LoginClass
+ *
+ *  @author: Nguyễn Văn A
+ *  @last_editor: Trần Văn B
+ *  @last_edit_date: 13/09/2017 20h30'
+ *  @params:
+ *      (string)        $str            Chuỗi đầu vào
+ *      [(int)]         $number = 0     Số đầu vào
+ *  @docs: http://link_to_docs.html
+ *  @notes: 
+ *      - Chưa làm xong phần disable nút đăng nhập khi đang xử lý đăng nhập
+ *      - Đã nghỉ ra cách để xử lý tốt hơn mật khẩu
+ */
+ 
+ ---------------------------------------------------
+ 
