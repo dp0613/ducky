@@ -1,4 +1,16 @@
 <?php 
+	
+	/**
+	 * Route Class
+	 *
+	 *  @author: dp0613
+	 *  @last_editor: dp0613
+	 *  @last_edit_date: 29/09/2017 9h19'
+	 *  @docs: http://duckydocs.bitballoon.com/class/system/route/
+	 *  @notes: 
+	 *      - Lớp này sẽ phân tích URI và giúp cho Ducky có URL đẹp hơn
+	 */
+	 
 	class Route 
 	{
 		private $_shape;
@@ -32,6 +44,21 @@
 			return $this -> _params;
 		}
 		
+		
+		/**
+		 * parse()
+		 *
+		 *  @author: dp0613
+		 *  @last_editor: dp0613
+		 *  @last_edit_date: 29/09/2017 9h21'
+		 *  @params:
+		 *      (string)        $uri           URI hiện tại
+		 *  @return: void
+		 *  @docs: http://duckydocs.bitballoon.com/class/system/route#parse
+		 *  @notes: 
+		 *      - Hàm này sẽ phân tích URI ra thành nhiều thành phần
+		 */
+		 
 		public function parse($uri)
 		{
 			//Cắt bỏ phần phía sau dấu ? trong URI

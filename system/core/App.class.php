@@ -9,32 +9,32 @@
 		static private $_controllerFunc;
 		static private $_params;
 		
-		public function _getRouter()
+		static public function _getRouter()
 		{
 			return self::$_router;
 		}
 		
-		public function _getShape()
+		static public function _getShape()
 		{
 			return self::$_shape;
 		}
 	
-		public function _getLanguage()
+		static public function _getLanguage()
 		{
 			return self::$_language;
 		}
 	
-		public function _getController()
+		static public function _getController()
 		{
 			return self::$_controller;
 		}
 	
-		public function _getControllerFunc()
+		static public function _getControllerFunc()
 		{
 			return self::$_controllerFunc;
 		}
 	
-		public function _getParams()
+		static public function _getParams()
 		{
 			return self::$_params;
 		}
@@ -59,7 +59,7 @@
 			
 			//Load view
 			$view = new View();
-			$shapeHtml = $view -> load($shape, $contents);
+			$shapeHtml = $view -> loadView($shape, $contents);
 			
 		}
 		

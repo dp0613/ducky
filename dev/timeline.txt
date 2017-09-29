@@ -1,7 +1,9 @@
 TIẾP THEO:
-	1. Viết docs về cấu trúc thư mục
-	2. Viết docs về luồng dữ liệu
-	
+
+	3. Viết docs cho class View
+	4. Viết docs cho class Route
+	4. Viết docs cho class Debug
+	4. Viết docs cho class Config
 	
 	
 	
