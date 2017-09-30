@@ -1,8 +1,20 @@
 <?php 
 	//Nhúng tất cả tệp config của system và application
-	require_once(SYS_DIR.'config'.DS.'default.conf.php');
-	require_once(SYS_DIR.'config'.DS.'shape.conf.php');
-	require_once(SYS_DIR.'config'.DS.'language.conf.php');
+	// vì các thiết lập của app được ưu tiên nên phải nhúng sau 
+	$fileInSystemConfigFolder = array_diff(scandir(SYS_DIR.'config'), array('.', '..'));
+	$fileInApplicationConfigFolder = array_diff(scandir(APP_DIR.'config'), array('.', '..'));
+	
+	//Nhúng tệp của hệ thống trước
+	foreach($fileInSystemConfigFolder as $key => $file)
+	{
+		require_once(SYS_DIR.'config'.DS.$file);
+	}
+	
+	//Nhúng tệp của app sau
+	foreach($fileInApplicationConfigFolder as $key => $file)
+	{
+		require_once(APP_DIR.'config'.DS.$file);
+	}
 	
 	function __autoload($className) 
 	{

@@ -5,14 +5,14 @@
 		public function index()
 		{
 			$contents = array(
-				'post_title' => 'BÀI VIẾT ĐẦU TIÊN',
-				'post_date' => '20/10/2010',
-				'post_author_link' => '#',
+				'post_title' => 'DUCKY <small>v0.1.1</small>',
+				'post_date' => '30.09.2017',
+				'post_author_link' => 'http://github.com/dp0613',
 				'post_author_name' => 'dp0613',
-				'post_contents' => 'Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vivamus suscipit tortor eget felis porttitor volutpat.'
+				'post_contents' => '<p>Chào mừng đến với <b>Ducky Framework</b>!</p><p>Chúc mừng bạn đã cài đặt thành công Ducky Framework. Để tìm hiểu thêm, vui lòng đọc tài liệu của chúng tôi <a href="http://duckydocs.readthedocs.org">tại đây</a>.</p>'
 			);
 			
-			return $contents;
+			App::_getViewObject() -> assignContents($contents);
 		}
 		
 	}

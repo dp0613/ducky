@@ -2,12 +2,17 @@
 	class App
 	{
 		
+		//Các biến lấy từ lớp Route
 		static private $_router;
 		static private $_shape;
 		static private $_language;
 		static private $_controller;
 		static private $_controllerFunc;
 		static private $_params;
+		static private $_languageObject;
+		
+		//Các biến lấy từ lớp View
+		static private $_viewObject;
 		
 		static public function _getRouter()
 		{
@@ -39,40 +44,56 @@
 			return self::$_params;
 		}
 		
+		static public function _getViewObject()
+		{
+			return self::$_viewObject;
+		}
+		
+		static public function _getLanguageObject()
+		{
+			return self::$_languageObject;
+		}
 		
 		public function run($uri)
 		{
-			//Lấy các biến để điều khiển app
-			$router = self::$_router;
-			$shape = self::$_shape;
-			$language = self::$_language;
-			$controller = self::$_controller;
-			$controllerFunc = self::$_controllerFunc;
-			$params = self::$_params;
+			
 			
 			//Parse URI
-			$router -> parse($uri);
-			
-			//Lấy nội dung tương ứng với request
-			$controllerObj = new $controller();
-			$contents = $controllerObj -> $controllerFunc();
-			
-			//Load view
-			$view = new View();
-			$shapeHtml = $view -> loadView($shape, $contents);
-			
-		}
-		
-		public function __construct()
-		{
-			//Gán các giá trị cho vào đối tượng App
 			self::$_router = new Route();
+			self::$_router -> parse($uri);
+			
+			//Gán các giá trị của Route vào App
 			self::$_shape = self::$_router -> _getShape();
 			self::$_language = self::$_router -> _getLanguage();
 			self::$_controller = self::$_router -> _getController();
 			self::$_controllerFunc = self::$_router -> _getControllerFunc();
 			self::$_params = self::$_router -> _getParams();
 			
+			//Khởi tạo View để dùng trong controller
+			self::$_viewObject = new View();
+			
+			//Chạy controller function
+			$controllerName = self::$_controller;
+			$controllerFuncName = self::$_controllerFunc;
+			$controllerObj = new $controllerName();
+			$controllerObj -> $controllerFuncName();
+			
+			//Render view lấy html
+			$html = self::$_viewObject -> render(self::$_shape, self::$_controller, self::$_controllerFunc);
+			
+			//Load ngôn ngữ
+			$language = new Language(self::$_language);
+			
+			//Gán html vào lớp Language
+			$language -> setHtml($html);
+			$language -> show();
+			
+		}
+		
+		public function __construct($uri)
+		{
+			//Khởi chạy ứng dụng
+			$this -> run($uri);
 		}
 	}
 ?>

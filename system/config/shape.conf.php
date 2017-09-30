@@ -13,8 +13,8 @@
 	//Danh sách các shape được cài sẵn
 	// shape_name => shape_folder
 	Config::_set('shapes', array(
-		'home' => APP_DIR.'views'.DS.'home',
-		'admin' => APP_DIR.'views'.DS.'admin'
+		'home' => APP_DIR.'shapes'.DS.'home',
+		'admin' => APP_DIR.'shapes'.DS.'admin'
 	));
 	
 	//Cấu trúc của shape

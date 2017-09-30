@@ -28,6 +28,14 @@
 		 *		 tên của shape. Sau đó nối các html này lại theo đúng thứ tự được
 		 *		 thiết lập ở file shape.conf.php.
 		 */
+		
+		
+		static private $_html;
+		static private $_shapeHtml;
+		static private $_placeholders;
+		static private $_contents;
+		static private $_viewHtml;
+
 		public function renderShape($shapeName)
 		{
 			$shapeList = Config::_get('shapes');
@@ -44,9 +52,9 @@
 			$shapeStructureList = Config::_get('shape_structures');
 			$shapeStructure = $shapeStructureList[$shapeName];
 			$shapeHtml = '';
-			foreach( $shapeStructure as $key => $fileName ) 
+			foreach($shapeStructure as $key => $fileName) 
 			{
-				$shapeFile = $shapeFolder.DS.$fileName.'.view.php';
+				$shapeFile = $shapeFolder.DS.$fileName.'.shape.php';
 				if(file_exists($shapeFile))
 				{
 					$shapeHtml .= file_get_contents($shapeFile);
@@ -56,42 +64,39 @@
 				}
 			}
 			
-			return $shapeHtml;
+			self::$_shapeHtml = $shapeHtml;
 		}
 		
-		/**
-		 * load()
-		 *
-		 *  @author: dp0613
-		 *  @last_editor: dp0613
-		 *  @last_edit_date: 29/09/2017 8h34'
-		 *  @params:
-		 *      (string)        $shape           Tên shape
-		 *      (string)        $contents        Nội dung của URI sẽ được lắp vào shape
-		 *  @return: void
-		 *  @docs: http://duckydocs.bitballoon.com/class/system/view#load
-		 *  @notes:
-		 */
-		public function loadView($shape, $contents)
+		public function renderView($controller, $controllerFunc)
 		{
-			$shapeHtml = $this -> renderShape($shape);
+			$viewPath = strtolower(APP_DIR.'views'.DS.$controller.DS.$controllerFunc.'.html');
 			
-			/*$cssFile = ABS_HOST.'application'.DS.'assets'.DS.'css'.DS.'home.css';
-			$jsFile = ABS_HOST.'application'.DS.'assets'.DS.'js'.DS.'home.js';
-			$html = str_replace('{{contents}}', $contents, $shapeHtml);
-			$html = str_replace('{{home.css}}', '<style>' . file_get_contents($cssFile) . '</style>', $html);
-			$html = str_replace('{{home.js}}', '<script>' . file_get_contents($jsFile) . '</script>', $html);
-			echo $html; */
+			if( ! file_exists($viewPath))
+			{
+				Debug::log("Không tồn tại view: {$viewPath}");
+				return;
+			}
 			
-			$placeholders = $this -> getPlaceholders($shapeHtml);
-			$html = $this -> replacePlaceholders($placeholders, $contents, $shapeHtml);
+			$viewHtml = file_get_contents($viewPath);
 			
-			echo $html;
+			self::$_viewHtml = $viewHtml;
 		}
 		
-		public function getPlaceholders($html)
+		public function putViewIntoShape()
 		{
-			$issetPlaceholder = preg_match_all('/{{(.+?)}}/', $html, $placeholders);
+			//Nếu trong shape không có chỗ mốc view (không có chữ {@view_contents})
+			if(strpos(self::$_shapeHtml, '{@view_contents}') === FALSE)
+			{
+				Debug::log("Shape không có chỗ mốc view, vui lòng đặt cụm <b>{@view_contents}</b> vào chỗ nào bạn muốn nội dung của view hiện ra.");
+				return;
+			}
+			
+			self::$_html = str_replace('{@view_contents}', self::$_viewHtml, self::$_shapeHtml);
+		}
+		
+		public function findAllPlaceholders()
+		{
+			$issetPlaceholder = preg_match_all('/{{(.+?)}}/', self::$_html, $placeholders);
 			
 			//Nếu không có placeholder nào
 			if($issetPlaceholder === FALSE OR $issetPlaceholder === 0)
@@ -119,25 +124,18 @@
 				'casual_group' => $casualGroup
 			);
 			
-			return $returnData;
+			self::$_placeholders = $returnData;
 		}
 		
-		public function replacePlaceholders($placeholders, $contents, $html)
+		public function assignContents($contents)
 		{
-			//Nếu placeholder là dạng thường thì sẽ thay bằng dữ liệu của content
-			// nếu là tệp thì sẽ nhúng tệp bằng hàm getStaticFile
-			
-			foreach($placeholders['casual_group'] as $key => $placeholder)
+			if( ! is_array($contents))
 			{
-				$html = str_replace('{{'.$placeholder.'}}', $contents[$placeholder], $html);
+				Debug::log("Hàm assignContents() cần tham số là mảng.");
+				return;
 			}
 			
-			foreach($placeholders['file_group'] as $key => $placeholder)
-			{
-				$html = str_replace('{{'.$placeholder.'}}', $this -> getStaticFile($placeholder), $html);
-			}
-			
-			return $html;
+			self::$_contents = $contents;
 		}
 		
 		public function getStaticFile($fileName)
@@ -177,6 +175,49 @@
 			}
 			
 			return $returnData;
+		}
+		
+		public function replacePlaceholders()
+		{
+			$placeholders = self::$_placeholders;
+			$contents = self::$_contents;
+			$html = self::$_html;
+			
+			//Nếu placeholder là dạng thường thì sẽ thay bằng dữ liệu của content
+			// nếu là tệp thì sẽ nhúng tệp bằng hàm getStaticFile
+			
+			foreach($placeholders['casual_group'] as $key => $placeholder)
+			{
+				$html = str_replace('{{'.$placeholder.'}}', $contents[$placeholder], $html);
+			}
+			
+			foreach($placeholders['file_group'] as $key => $placeholder)
+			{
+				$html = str_replace('{{'.$placeholder.'}}', $this -> getStaticFile($placeholder), $html);
+			}
+			
+			self::$_html = $html;
+		}
+		
+		public function render($shape, $controller, $controllerFunc)
+		{
+			//Render shape html
+			$this -> renderShape($shape);
+			
+			//Render view html
+			$this -> renderView($controller, $controllerFunc);
+			
+			//Ghép view vào shape
+			$this -> putViewIntoShape();
+			
+			//Tìm tất cả các placeholder
+			$this -> findAllPlaceholders();
+			
+			//Thay thế placeholder bằng nội dung trả về từ controller
+			$this -> replacePlaceholders();
+			
+			//Trả về html
+			return self::$_html;
 		}
 	}
 ?>

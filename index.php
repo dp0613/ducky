@@ -21,6 +21,6 @@
 	//Nhúng tệp autoload.php
 	require_once(ROOT_DIR.DS.'autoload.php');
 	
-	$app = new App();
-	$app -> run($_SERVER['REQUEST_URI']);
+	//Khởi chạy ứng dụng
+	$app = new App($_SERVER['REQUEST_URI']);
 ?>

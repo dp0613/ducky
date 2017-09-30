@@ -1,9 +1,9 @@
 TIẾP THEO:
-
-	3. Viết docs cho class View
-	4. Viết docs cho class Route
-	4. Viết docs cho class Debug
-	4. Viết docs cho class Config
+	- Chỉnh sửa cấu trúc thư mục
+	- Viết docs cho class View
+	- Viết docs cho class Route
+	- Viết docs cho class Debug
+	- Viết docs cho class Config
 	
 	
 	
