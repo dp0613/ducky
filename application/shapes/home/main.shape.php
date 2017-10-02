@@ -1,2 +1,4 @@
-<!-- Html của view sẽ được đặt bên dưới -->
-{@view_contents}
+	<!-- Html của view sẽ được đặt bên dưới -->
+	<article>
+		{@view_contents}
+	</article>

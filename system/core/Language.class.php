@@ -13,13 +13,19 @@
 		
 		public function getLanguageStringData()
 		{
-			$languageFile = APP_DIR.'languages'.DS.self::$_currentLanguage.'.xml';
+			//Nếu tồn tại $_COOKIE['lang'] thì sẽ ưu tiên cho ngôn ngữ trong cookie
+			$currentLanguage = isset($_COOKIE['lang']) ? $_COOKIE['lang'] : self::$_currentLanguage;
+			
+			$languageFile = APP_DIR.'languages'.DS.$currentLanguage.'.xml';
 			
 			//Nếu không có tệp ngôn ngữ, thì sử dụng ngôn ngữ mặc định
 			if( ! file_exists($languageFile))
 			{
+				$defaultLanguage = Config::_get('default_language');
+				
+				$languageFile = APP_DIR.'languages'.DS.$defaultLanguage.'.xml';
+				
 				Debug::log("Không tìm thấy tệp ngôn ngữ: {$languageFile}");
-				$languageFile = APP_DIR.'languages'.DS.Config::_get('default_language').'.xml';
 			}
 			
 			$languageStringData = simplexml_load_file($languageFile);
@@ -66,6 +72,12 @@
 			$this -> replaceAllLanguageScopes();
 			
 			return print(self::$_html);
+		}
+		
+		//Hàm này sử dụng cho chức năng "lựa chọn ngôn ngữ"
+		public function _setLanguage($language)
+		{
+			return setCookie('lang', $language, time() + 84600, '/');
 		}
 		
 		public function __construct($language)

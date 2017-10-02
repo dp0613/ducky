@@ -148,32 +148,29 @@
 			$extensionParts = explode('.', $fileName);
 			$extension = $extensionParts[1];
 			
-			
-			switch(true)
+			//Nếu tệp là dạng css hoặc js
+			if(in_array($extension, $staticExtensions))
 			{
-				case in_array($extension, $staticExtensions):
-					$filePath = APP_DIR.'assets'.DS.$extension.DS.$fileName;
-					$returnData = file_get_contents($filePath);
-					
-					if($extension === 'js')
-					{
-						$returnData = "<script>{$returnData}</script>";
-					} else if($extension === 'css')
-					{
-						$returnData = "<style>{$returnData}</style>";
-					}
-					
-					break;
-				case in_array($extension, $imageExtensions):
-					$imagePath = APP_DIR.'assets'.DS.'images'.DS.$fileName;
-					$returnData = "<img src='{$imagePath}' alt='{$fileName}' />";
-					break;
-				default:
-					$returnData = NULL;
-					Debug::log("Không tìm thấy tệp: {$fileName}");
-					break;
+				$filePath = APP_DIR.'assets'.DS.$extension.DS.$fileName;
+				$returnData = file_get_contents($filePath);
+				
+				if($extension === 'js')
+				{
+					$returnData = "<script>{$returnData}</script>";
+				} else if($extension === 'css')
+				{
+					$returnData = "<style>{$returnData}</style>";
+				}
+			} else if(in_array($extension, $imageExtensions))
+			{
+				$imagePath = APP_DIR.'assets'.DS.'images'.DS.$fileName;
+				$returnData = "<img src='{$imagePath}' alt='{$fileName}' />";
+			} else
+			{
+				$returnData = NULL;
+				Debug::log("Không tìm thấy tệp: {$fileName}");
 			}
-			
+
 			return $returnData;
 		}
 		

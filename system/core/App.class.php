@@ -54,9 +54,13 @@
 			return self::$_languageObject;
 		}
 		
-		public function run($uri)
+		public function run($url)
 		{
+			//Lấy uri
+			$uri = Url::_getUri($url);
 			
+			//Nếu url chưa được cấu hình ở tệp url.conf.php, sử dụng uri
+			$uri = empty($uri) ? $url : $uri;
 			
 			//Parse URI
 			self::$_router = new Route();
@@ -90,10 +94,10 @@
 			
 		}
 		
-		public function __construct($uri)
+		public function __construct($url)
 		{
 			//Khởi chạy ứng dụng
-			$this -> run($uri);
+			$this -> run($url);
 		}
 	}
 ?>

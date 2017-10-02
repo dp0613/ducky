@@ -18,5 +18,13 @@ B. Quy trình thi công
 	
 C. Định dạng URI
 	http://domain.com/shape/language/controller/controller_function/param1/param2
-	
+
+D. Chức năng:
+	- Minify html trước khi in ra
+	- Caching
+	- Bảo mật
+	- Database helper
+	- Thư viện các hàm giống CI
+	- Quản lý lỗi (404, 403...)
+	- Các chế độ cho Ducky: Dev | Use | Product
 	

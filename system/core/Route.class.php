@@ -94,25 +94,33 @@
 			//Lấy controller từ URI
 			if(current($uriParts))
 			{
+				$controller = current($uriParts);
 				//Kiểm tra sự tồn tại của controller
-				if( ! file_exists(APP_DIR.'controllers'.DS.$this -> _controller.'.controller.php'))
+				if(file_exists(APP_DIR.'controllers'.DS.$controller.'.controller.php'))
 				{
-					Debug::log("Không tồn tại controller: {$this -> _controller}");
+					$this -> _controller = $controller;
+					array_shift($uriParts);
+				} else
+				{
+					Debug::log("Không tồn tại controller: {$controller}");
 				}
-				$this -> _controller = current($uriParts);
-				array_shift($uriParts);
+				
 			}
 			
 			//Lấy controller_func từ URI
 			if(current($uriParts))
 			{
 				$controllerObject = new $this -> _controller();
-				if( ! method_exists($controllerObject, current($uriParts)))
+				$controllerFunc = current($uriParts);
+				if(method_exists($controllerObject, $controllerFunc))
 				{
-					Debug::log('Không tồn tại method: '.current($uriParts).' trong class: '.$this -> _controller);
+					$this -> _controllerFunc = $controllerFunc;
+					array_shift($uriParts);
+				} else
+				{
+					Debug::log("Không tồn tại method: {$controllerFunc} trong class: {$this -> _controller}");
 				}
-				$this -> _controllerFunc = current($uriParts);
-				array_shift($uriParts);
+				
 			}
 			
 			//Lấy tất cả param từ URI

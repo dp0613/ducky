@@ -11,8 +11,9 @@
 	 */
  
 	//Danh sách các ngôn ngữ
+	// language_key => language_name
 	Config::_set('languages', array(
-		'vi' => APP_DIR.'languages'.DS.'vi.language.php',
-		'en' => APP_DIR.'languages'.DS.'en.language.php'
+		'vi' => 'Tiếng Việt',
+		'en' => 'English'
 	));
 ?>
