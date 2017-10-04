@@ -39,11 +39,10 @@ aside {
 }
 
 article {
-	padding: 30px;
-	float: right;
+	padding: 10px;
+	float: left;
 	width: 80%;
 	box-sizing: border-box;
-	min-height: 80vh;
 }
 
 footer {

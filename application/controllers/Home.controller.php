@@ -4,6 +4,13 @@
 	{
 		public function index()
 		{
+			//Test database
+			$db = new Database([
+				'db_driver' => 'mysqli'
+			]);
+			$mysqli = $db -> open();
+			print_r($mysqli -> reconnect());
+			
 			$contents = array(
 				'post_title' => 'DUCKY <small>v0.1.1</small>',
 				'post_date' => '30.09.2017',

@@ -27,4 +27,5 @@ D. Chức năng:
 	- Thư viện các hàm giống CI
 	- Quản lý lỗi (404, 403...)
 	- Các chế độ cho Ducky: Dev | Use | Product
+	- Hook 
 	

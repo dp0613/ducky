@@ -5,7 +5,7 @@
 		{
 			$errorType = Controller::$_params[0];
 			
-			//Chỉ mới handle cho lỗi 404
+			//Link redirect đến trang báo lỗi: home/error/404 | home/error/403
 			$contents = array(
 				'error_text' => "__(text{$errorType})"
 			);
